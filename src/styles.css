@@ -295,6 +295,7 @@ body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:o
 .case-close:hover{background:var(--acid);color:var(--black);border-color:var(--acid);transform:rotate(90deg)}
 .case-content .text-link{transition:padding-left .4s var(--ease-cidea),color .3s ease,border-color .3s ease}
 .case-content .text-link:hover{padding-left:8px;color:var(--acid);border-color:var(--acid)}
+@keyframes mobileMenuIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
 @keyframes panelIn{
   from{opacity:0;transform:translateY(24px) scale(.985)}
   to{opacity:1;transform:none}
@@ -339,7 +340,7 @@ footer:hover{color:#999}
 }
 .project:hover .project-art:after{opacity:.45}
 .case-panel{overscroll-behavior:contain}
-.mobile-menu{opacity:0;transform:translateY(-12px);transition:opacity .45s var(--ease-cidea),transform .55s var(--ease-cidea)}
+.mobile-menu{opacity:1;transform:none;animation:mobileMenuIn .5s var(--ease-cidea)}
 .mobile-menu button{transition:transform .45s var(--ease-cidea),color .3s ease}
 .mobile-menu button:hover{transform:translateX(8px);color:var(--acid)}
 @media(max-width:900px){
@@ -347,5 +348,5 @@ footer:hover{color:#999}
   .project-art:after{opacity:.55}
 }
 @media(prefers-reduced-motion:reduce){
-  .nav-scrolled,.mobile-menu,.mobile-menu button,.project-art:after{transition:none!important}
+  .nav-scrolled,.mobile-menu,.mobile-menu button,.project-art:after{transition:none!important;animation:none!important}
 }
