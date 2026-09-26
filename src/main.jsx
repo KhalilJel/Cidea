@@ -115,6 +115,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.getElementById("boot-fallback")?.remove();
     document.body.style.overflow = selectedProject ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [selectedProject]);
