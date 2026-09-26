@@ -315,3 +315,37 @@ footer:hover{color:#999}
   .nav,.brand,.button,.project,.project-meta,.project-meta h3,.approach-row,.approach-row h3,.lab-item,.contact-email,.contact-button,.case-close,.case-content .text-link,.case-panel{transition:none!important;animation:none!important}
   .hero:hover h1 em,.section-head:hover h2,.difference:hover h2,.impact:hover h2,.lab:hover .lab-copy h2,.about:hover h2{transform:none;letter-spacing:inherit}
 }
+
+
+/* Production polish: navigation state, depth and transition continuity */
+.nav-scrolled{
+  padding-top:15px;
+  padding-bottom:15px;
+  background:rgba(8,8,8,.76);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(241,240,235,.07);
+}
+.nav-scrolled .brand{letter-spacing:-.07em}
+.hero,.statement,.work,.difference,.approach,.impact,.lab,.about,.contact{scroll-margin-top:20px}
+.statement,.work,.approach,.impact,.lab,.about,.contact{background-attachment:scroll}
+.project-art:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(8,8,8,.02),transparent 45%,rgba(8,8,8,.3));
+  pointer-events:none;
+  opacity:.8;
+  transition:opacity .6s ease;
+}
+.project:hover .project-art:after{opacity:.45}
+.case-panel{overscroll-behavior:contain}
+.mobile-menu{opacity:0;transform:translateY(-12px);transition:opacity .45s var(--ease-cidea),transform .55s var(--ease-cidea)}
+.mobile-menu button{transition:transform .45s var(--ease-cidea),color .3s ease}
+.mobile-menu button:hover{transform:translateX(8px);color:var(--acid)}
+@media(max-width:900px){
+  .nav-scrolled{padding-top:14px;padding-bottom:14px}
+  .project-art:after{opacity:.55}
+}
+@media(prefers-reduced-motion:reduce){
+  .nav-scrolled,.mobile-menu,.mobile-menu button,.project-art:after{transition:none!important}
+}
