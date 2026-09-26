@@ -68,7 +68,7 @@ h1,h2,h3,p{margin:0}
 .project-studio .project-art{background:radial-gradient(circle at 65% 40%,#26300f,#111 35%,#080808 70%)}
 .project-clinic .project-art{background:linear-gradient(140deg,#292621,#0d0c0b)}
 .project-hospitality .project-art{background:radial-gradient(circle at 40% 35%,#33231d,#100c0a 60%)}
-.project-architecture .project-art{background:linear-gradient(135deg,#30312e,#111 65%)}
+.project-architecture .project-art{background:linear-gradient(135deg,#30312e,#111 65%)}\n.project-clinic .shape-three{border-radius:50%;border-color:rgba(241,240,235,.16)}\n.project-hospitality .shape-two{border-color:rgba(217,170,130,.22)}\n.project-architecture .shape-one{border-radius:4%;transform:rotate(45deg)}\n.project-studio .shape-three{border-color:rgba(217,255,63,.28)}
 .art-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:10% 10%;opacity:.35;transition:transform 1s ease}
 .project:hover .art-grid{transform:scale(1.15) rotate(1deg)}
 .art-scan{position:absolute;left:0;right:0;height:1px;background:rgba(217,255,63,.45);top:38%;opacity:0;transition:opacity .4s,transform 1s}
@@ -182,7 +182,7 @@ body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:o
   transition:padding .5s var(--ease-cidea),background .5s ease,backdrop-filter .5s ease;
 }
 .brand{transition:letter-spacing .35s var(--ease-cidea),transform .35s var(--ease-cidea)}
-.brand-button:hover .brand{letter-spacing:-.075em;transform:translateX(2px)}
+.brand-button:hover{letter-spacing:-.075em;transform:translateX(2px)}
 .nav nav button{position:relative}
 .nav nav button:not(.nav-cta):after{
   content:"";
@@ -295,7 +295,7 @@ body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:o
 .case-close:hover{background:var(--acid);color:var(--black);border-color:var(--acid);transform:rotate(90deg)}
 .case-content .text-link{transition:padding-left .4s var(--ease-cidea),color .3s ease,border-color .3s ease}
 .case-content .text-link:hover{padding-left:8px;color:var(--acid);border-color:var(--acid)}
-@keyframes mobileMenuIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes mobileMenuIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}\n@keyframes mobileNavItemIn{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
 @keyframes panelIn{
   from{opacity:0;transform:translateY(24px) scale(.985)}
   to{opacity:1;transform:none}
