@@ -355,7 +355,7 @@ function App() {
                 <div><span>SYSTEM</span><p>{selectedProject.system}</p></div>
                 <div><span>OUTCOME</span><p>{selectedProject.outcome}</p></div>
               </div>
-              <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button>
+              <div className="case-actions"><a className="text-link" href={`/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : selectedProject.name === "NORTHLINE" ? "northline" : "cidea"}/`} target="_blank" rel="noreferrer">OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a><button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button></div>
             </div>
           </div>
         </div>
