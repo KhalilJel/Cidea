@@ -161,3 +161,4 @@ footer{padding:25px 5vw;display:block}footer>div{margin-bottom:12px}
 @media(prefers-reduced-motion:reduce){
 html{scroll-behavior:auto}.lab-ring,.scroll-cue{animation:none}.cursor{transition:none}.hero h1,.hero-orbit,.construction-grid{transform:none!important}.case-overlay{animation:none}
 }
+.case-actions{display:flex;flex-wrap:wrap;gap:24px;align-items:center}.case-actions .text-link{margin-top:40px}.case-actions a{text-decoration:none}
