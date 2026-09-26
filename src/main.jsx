@@ -86,6 +86,8 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeLab, setActiveLab] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const closeTrigger = useRef(null);
+  const caseOrigin = useRef(null);
 
   useEffect(() => {
     const move = (event) => {
@@ -110,7 +112,7 @@ function App() {
     };
     const keydown = (event) => {
       if (event.key === "Escape") {
-        setSelectedProject(null);
+        closeProject();
         setMenuOpen(false);
       }
     };
@@ -145,7 +147,11 @@ function App() {
     onMouseLeave: () => setCursorLabel("")
   });
 
-  const openProject = (project) => { track("cidea_case_open", { project: project.name }); setSelectedProject(project); };
+  const openProject = (project) => {
+    caseOrigin.current = document.activeElement;
+    track("cidea_case_open", { project: project.name });
+    setSelectedProject(project);
+  };
   const projectKeyDown = (event, project) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -164,6 +170,31 @@ function App() {
     const nextProject = projects[nextIndex];
     track("cidea_case_navigate", { from: selectedProject.name, to: nextProject.name });
     setSelectedProject(nextProject);
+  };
+
+  useEffect(() => {
+    if (!selectedProject || selectedIndex < 0) return;
+    const handleCaseKeys = (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const nextIndex = (selectedIndex + direction + projects.length) % projects.length;
+      const nextProject = projects[nextIndex];
+      track("cidea_case_navigate", { from: selectedProject.name, to: nextProject.name });
+      setSelectedProject(nextProject);
+    };
+    window.addEventListener("keydown", handleCaseKeys);
+    return () => window.removeEventListener("keydown", handleCaseKeys);
+  }, [selectedProject, selectedIndex]);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+    requestAnimationFrame(() => closeTrigger.current?.focus());
+  }, [selectedProject]);
+
+  const closeProject = () => {
+    setSelectedProject(null);
+    requestAnimationFrame(() => caseOrigin.current?.focus?.());
   };
 
   const handleBrief = (event) => {
