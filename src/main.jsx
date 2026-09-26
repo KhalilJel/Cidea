@@ -412,7 +412,7 @@ function App() {
       </main>
 
       {selectedProject && (
-        <div className="case-overlay" role="dialog" aria-modal="true" aria-label={selectedProject.name} onClick={() => setSelectedProject(null)}>
+        <div className="case-overlay" role="dialog" aria-modal="true" aria-label={selectedProject.name} onClick={closeProject}>
           <div className={`case-panel ${selectedProject.className}`} onClick={(event) => event.stopPropagation()}>
             <button className="case-close" onClick={() => setSelectedProject(null)} aria-label="Close project"><X size={22}/></button>
             <div className="case-visual">
