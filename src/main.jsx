@@ -158,6 +158,14 @@ function App() {
     [selectedProject]
   );
 
+  const changeProject = (direction) => {
+    if (selectedIndex < 0) return;
+    const nextIndex = (selectedIndex + direction + projects.length) % projects.length;
+    const nextProject = projects[nextIndex];
+    track("cidea_case_navigate", { from: selectedProject.name, to: nextProject.name });
+    setSelectedProject(nextProject);
+  };
+
   const handleBrief = (event) => {
     track("cidea_enquiry_start", { form: "project_brief" });
     event.preventDefault();
@@ -393,7 +401,12 @@ function App() {
                 <div><span>DELIVERABLES</span><p>{selectedProject.deliverables}</p></div>
                 <div><span>DESIGN PRINCIPLE</span><p>{selectedProject.principle}</p></div>
               </div>
-              <div className="case-actions"><a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("cidea_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a><button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button></div>
+              <div className="case-actions">
+                <button className="text-link" onClick={() => changeProject(-1)} aria-label="Previous case">PREVIOUS CASE <ArrowUpRight size={16}/></button>
+                <button className="text-link" onClick={() => changeProject(1)} aria-label="Next case">NEXT CASE <ArrowUpRight size={16}/></button>
+                <a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("cidea_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a>
+                <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button>
+              </div>
             </div>
           </div>
         </div>
