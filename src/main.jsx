@@ -136,6 +136,17 @@ function App() {
 
   const handleBrief = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const subject = `Cidea project enquiry from ${data.get("name")}`;
+    const body = [
+      `Name: ${data.get("name")}`,
+      `Company: ${data.get("company")}`,
+      `Project type: ${data.get("type")}`,
+      "",
+      "Project brief:",
+      data.get("message")
+    ].join("\\n");
+    window.location.href = `mailto:hello@cidea.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   };
 
@@ -330,7 +341,7 @@ function App() {
               <label>Project type<select name="type" defaultValue="New digital experience"><option>New digital experience</option><option>Website redesign</option><option>Digital product</option><option>Growth and conversion</option></select></label>
               <label>What are you trying to achieve?<textarea required name="message" rows="4" placeholder="A short description of the project" /></label>
               <button className="contact-button" type="submit">{submitted ? <><Check size={20}/> BRIEF READY</> : <>SEND PROJECT BRIEF <ArrowUpRight size={22}/></>}</button>
-              {submitted && <p className="form-note">Your brief is ready. Email Cidea directly to continue the conversation.</p>}
+              {submitted && <p className="form-note">Your email draft is ready. Send it from your email client to continue the conversation.</p>}
             </form>
           </div>
         </section>
