@@ -74,6 +74,7 @@ function App() {
   const [cursorLabel, setCursorLabel] = useState("");
   const [activeApproach, setActiveApproach] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [navScrolled, setNavScrolled] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeLab, setActiveLab] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -87,6 +88,7 @@ function App() {
     const scroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(max > 0 ? window.scrollY / max : 0);
+      setNavScrolled(window.scrollY > 24);
       const rows = [...document.querySelectorAll(".approach-row")];
       if (!rows.length) return;
       let nearest = 0;
@@ -126,12 +128,16 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const track = (event, payload = {}) => {
+    window.dataLayer?.push({ event, ...payload });
+  };
+
   const cursorProps = (label) => ({
     onMouseEnter: () => setCursorLabel(label),
     onMouseLeave: () => setCursorLabel("")
   });
 
-  const openProject = (project) => setSelectedProject(project);
+  const openProject = (project) => { track("cidea_case_open", { project: project.name }); setSelectedProject(project); };
   const projectKeyDown = (event, project) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -145,6 +151,7 @@ function App() {
   );
 
   const handleBrief = (event) => {
+    track("cidea_enquiry_start", { form: "project_brief" });
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const subject = `Cidea project enquiry from ${data.get("name")}`;
@@ -167,15 +174,15 @@ function App() {
       </div>
       <div className="progress-line" />
 
-      <header className="nav">
+      <header className={`nav${navScrolled ? " nav-scrolled" : ""}`}>
         <button className="brand brand-button" onClick={() => scrollTo("top")} aria-label="Go to top">CIDEA<span>®</span></button>
         <div className="nav-center">DIGITAL EXPERIENCE STUDIO</div>
         <nav>
-          <button onClick={() => scrollTo("work")}>Work</button>
-          <button onClick={() => scrollTo("approach")}>Approach</button>
-          <button onClick={() => scrollTo("lab")}>Lab</button>
-          <button onClick={() => scrollTo("about")}>About</button>
-          <button className="nav-cta" onClick={() => scrollTo("contact")} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
+          <button onClick={() => { track("cidea_nav_click", { target: "work" }); scrollTo("work"); }}>Work</button>
+          <button onClick={() => { track("cidea_nav_click", { target: "approach" }); scrollTo("approach"); }}>Approach</button>
+          <button onClick={() => { track("cidea_nav_click", { target: "lab" }); scrollTo("lab"); }}>Lab</button>
+          <button onClick={() => { track("cidea_nav_click", { target: "about" }); scrollTo("about"); }}>About</button>
+          <button className="nav-cta" onClick={() => { track("cidea_cta_click", { location: "nav" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
         </nav>
         <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation">
           {menuOpen ? <X size={22}/> : <Menu size={22}/>}
