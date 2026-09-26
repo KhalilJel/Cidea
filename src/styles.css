@@ -167,3 +167,151 @@ html{scroll-behavior:auto}.lab-ring,.scroll-cue{animation:none}.cursor{transitio
 :focus-visible{outline:2px solid var(--acid);outline-offset:4px}
 .project:focus-visible{outline:2px solid var(--acid);outline-offset:-2px}
 @media (pointer:coarse){.cursor{display:none}}
+
+
+/* Cidea visual polish pass */
+:root{
+  --ease-cidea:cubic-bezier(.16,1,.3,1);
+  --ease-cidea-soft:cubic-bezier(.2,.8,.2,1);
+}
+::selection{background:var(--acid);color:var(--black)}
+body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.nav{
+  background:linear-gradient(180deg,rgba(8,8,8,.82),rgba(8,8,8,0));
+  backdrop-filter:blur(0);
+  transition:padding .5s var(--ease-cidea),background .5s ease,backdrop-filter .5s ease;
+}
+.brand{transition:letter-spacing .35s var(--ease-cidea),transform .35s var(--ease-cidea)}
+.brand-button:hover .brand{letter-spacing:-.075em;transform:translateX(2px)}
+.nav nav button{position:relative}
+.nav nav button:not(.nav-cta):after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-7px;
+  height:1px;
+  background:var(--acid);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .35s var(--ease-cidea);
+}
+.nav nav button:not(.nav-cta):hover:after{transform:scaleX(1);transform-origin:left}
+.button,.contact-button,.text-link{will-change:transform}
+.button{position:relative;overflow:hidden}
+.button:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--white);
+  transform:translateY(101%);
+  transition:transform .45s var(--ease-cidea);
+  z-index:0;
+}
+.button>*{position:relative;z-index:1}
+.primary:hover{color:var(--black)}
+.primary:hover:before{transform:translateY(0)}
+.ghost:before{background:var(--white)}
+.ghost:hover{color:var(--black);border-color:var(--white)}
+.hero h1{will-change:transform}
+.hero h1 em{display:inline-block;transition:transform .7s var(--ease-cidea),letter-spacing .7s var(--ease-cidea)}
+.hero:hover h1 em{transform:translateX:.018em;letter-spacing:-.065em}
+.scroll-cue{transition:color .3s ease}
+.hero:hover .scroll-cue{color:#999}
+.statement-main,.difference,.approach,.impact,.lab,.about,.contact{isolation:isolate}
+.statement-main:after{
+  content:"";
+  position:absolute;
+  width:28vw;
+  height:28vw;
+  right:-12vw;
+  top:25%;
+  border:1px solid rgba(217,255,63,.08);
+  border-radius:50%;
+  pointer-events:none;
+}
+.statement{overflow:hidden}
+.section-head{transition:padding-bottom .5s var(--ease-cidea)}
+.section-head h2{transition:letter-spacing .6s var(--ease-cidea)}
+.section-head:hover h2{letter-spacing:-.078em}
+.project{
+  transition:transform .6s var(--ease-cidea),box-shadow .6s var(--ease-cidea);
+}
+.project:hover{
+  transform:translateY(-3px);
+  box-shadow:0 24px 70px rgba(0,0,0,.22);
+}
+.project-meta{transition:transform .6s var(--ease-cidea),padding-top .6s var(--ease-cidea)}
+.project:hover .project-meta{padding-top:125px}
+.project-meta h3{transition:transform .45s var(--ease-cidea),color .3s ease}
+.project:hover .project-meta h3{transform:translateX(5px);color:var(--white)}
+.project:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(241,240,235,0);
+  pointer-events:none;
+  transition:border-color .5s ease;
+}
+.project:hover:after,.project:focus-visible:after{border-color:rgba(241,240,235,.12)}
+.difference{overflow:hidden}
+.difference h2{transition:letter-spacing .7s var(--ease-cidea)}
+.difference:hover h2{letter-spacing:-.085em}
+.approach-row{transition:padding .5s var(--ease-cidea),opacity .4s ease,background .4s ease}
+.approach-row:hover{background:linear-gradient(90deg,rgba(217,255,63,.035),transparent 55%)}
+.approach-row h3{transition:transform .5s var(--ease-cidea),color .35s ease}
+.approach-row:hover h3{transform:translateX(6px);color:var(--white)}
+.impact{overflow:hidden}
+.impact h2{transition:letter-spacing .8s var(--ease-cidea)}
+.impact:hover h2{letter-spacing:-.09em}
+.impact-lines p{transition:color .3s ease,padding-left .45s var(--ease-cidea),border-color .3s ease}
+.lab{overflow:hidden}
+.lab-copy h2{transition:letter-spacing .7s var(--ease-cidea)}
+.lab:hover .lab-copy h2{letter-spacing:-.078em}
+.lab-item{transition:opacity .3s ease,padding-left .45s var(--ease-cidea),background .35s ease}
+.lab-item:hover{background:linear-gradient(90deg,rgba(217,255,63,.035),transparent 65%)}
+.about{overflow:hidden}
+.about h2{transition:letter-spacing .8s var(--ease-cidea)}
+.about:hover h2{letter-spacing:-.085em}
+.contact{overflow:hidden}
+.contact:before{
+  content:"CIDEA";
+  position:absolute;
+  right:-.06em;
+  bottom:-.2em;
+  font:700 clamp(12rem,30vw,32rem)/.7 "Space Grotesk";
+  letter-spacing:-.1em;
+  color:rgba(8,8,8,.055);
+  pointer-events:none;
+  z-index:-1;
+}
+.contact-layout{position:relative;z-index:1}
+.contact-email{transition:padding-left .4s var(--ease-cidea),border-color .3s ease}
+.contact-email:hover{padding-left:6px;border-color:var(--black)}
+.contact-button{transition:background .35s var(--ease-cidea),color .35s var(--ease-cidea),transform .45s var(--ease-cidea)}
+.case-overlay{backdrop-filter:blur(20px)}
+.case-panel{animation:panelIn .65s var(--ease-cidea);transform-origin:center}
+.case-close{transition:background .3s ease,border-color .3s ease,transform .45s var(--ease-cidea)}
+.case-close:hover{background:var(--acid);color:var(--black);border-color:var(--acid);transform:rotate(90deg)}
+.case-content .text-link{transition:padding-left .4s var(--ease-cidea),color .3s ease,border-color .3s ease}
+.case-content .text-link:hover{padding-left:8px;color:var(--acid);border-color:var(--acid)}
+@keyframes panelIn{
+  from{opacity:0;transform:translateY(24px) scale(.985)}
+  to{opacity:1;transform:none}
+}
+footer{transition:color .3s ease}
+footer:hover{color:#999}
+@media(max-width:900px){
+  .nav{background:linear-gradient(180deg,rgba(8,8,8,.94),rgba(8,8,8,.72));backdrop-filter:blur(12px)}
+  .hero{min-height:100svh}
+  .hero h1{letter-spacing:-.085em}
+  .hero:hover h1 em{transform:none;letter-spacing:inherit}
+  .project:hover{transform:none;box-shadow:none}
+  .project:hover .project-meta{padding-top:100px}
+  .statement-main:after{display:none}
+  .contact:before{font-size:42vw}
+}
+@media(prefers-reduced-motion:reduce){
+  .nav,.brand,.button,.project,.project-meta,.project-meta h3,.approach-row,.approach-row h3,.lab-item,.contact-email,.contact-button,.case-close,.case-content .text-link,.case-panel{transition:none!important;animation:none!important}
+  .hero:hover h1 em,.section-head:hover h2,.difference:hover h2,.impact:hover h2,.lab:hover .lab-copy h2,.about:hover h2{transform:none;letter-spacing:inherit}
+}
