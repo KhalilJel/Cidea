@@ -214,7 +214,7 @@ body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:o
 .ghost:before{background:var(--white)}
 .ghost:hover{color:var(--black);border-color:var(--white)}
 .hero h1{will-change:transform}
-.hero h1 em{display:inline-block;transition:transform .7s var(--ease-cidea),letter-spacing .7s var(--ease-cidea)}
+.hero h1 em{display:inline-block;transition:transform .7s var(--ease-cidea)}
 .hero:hover h1 em{transform:translateX:.018em;letter-spacing:-.065em}
 .scroll-cue{transition:color .3s ease}
 .hero:hover .scroll-cue{color:#999}
