@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
 import { ArrowDownRight, ArrowUpRight, Check, Menu, Plus, X } from "lucide-react";
 import "./styles.css";
 
