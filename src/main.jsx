@@ -131,6 +131,14 @@ function App() {
     onMouseLeave: () => setCursorLabel("")
   });
 
+  const openProject = (project) => setSelectedProject(project);
+  const projectKeyDown = (event, project) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openProject(project);
+    }
+  };
+
   const selectedIndex = useMemo(
     () => selectedProject ? projects.findIndex((project) => project.name === selectedProject.name) : -1,
     [selectedProject]
@@ -224,7 +232,7 @@ function App() {
           </div>
           <div className="projects">
             {projects.map((project, index) => (
-              <article className={`project ${project.className}`} key={project.name} onClick={() => setSelectedProject(project)} {...cursorProps("VIEW PROJECT ↗")}>
+              <article className={`project ${project.className}`} key={project.name} tabIndex="0" role="button" aria-label={`View ${project.name} case study`} onClick={() => openProject(project)} onKeyDown={(event) => projectKeyDown(event, project)} {...cursorProps("VIEW PROJECT ↗")}>
                 <div className="project-art">
                   <div className="art-grid" />
                   <div className="art-scan" />
