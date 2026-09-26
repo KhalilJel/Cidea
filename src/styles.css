@@ -218,7 +218,7 @@ body{background:var(--black);-webkit-font-smoothing:antialiased;text-rendering:o
 .hero:hover h1 em{transform:translateX:.018em;letter-spacing:-.065em}
 .scroll-cue{transition:color .3s ease}
 .hero:hover .scroll-cue{color:#999}
-.statement-main,.difference,.approach,.impact,.lab,.about,.contact{isolation:isolate}
+.statement-main,.difference,.approach,.impact,.lab,.about,.contact{isolation:isolate;position:relative}
 .statement-main:after{
   content:"";
   position:absolute;
