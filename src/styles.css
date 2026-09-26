@@ -162,3 +162,8 @@ footer{padding:25px 5vw;display:block}footer>div{margin-bottom:12px}
 html{scroll-behavior:auto}.lab-ring,.scroll-cue{animation:none}.cursor{transition:none}.hero h1,.hero-orbit,.construction-grid{transform:none!important}.case-overlay{animation:none}
 }
 .case-actions{display:flex;flex-wrap:wrap;gap:24px;align-items:center}.case-actions .text-link{margin-top:40px}.case-actions a{text-decoration:none}
+
+/* Accessibility and touch polish */
+:focus-visible{outline:2px solid var(--acid);outline-offset:4px}
+.project:focus-visible{outline:2px solid var(--acid);outline-offset:-2px}
+@media (pointer:coarse){.cursor{display:none}}
