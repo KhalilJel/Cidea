@@ -111,7 +111,6 @@ function App() {
               ["Growth", "Launch with intent. Learn from behavior. Keep improving what happens after the click."]
             ].map(([title, text], i) => (
               <div className="approach-row" key={title}>
-                <span className="approach-index">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{title}</h3>
                 <p>{text}</p>
                 <Plus size={22}/>
