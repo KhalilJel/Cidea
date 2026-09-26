@@ -177,13 +177,13 @@ function App() {
           <button onClick={() => scrollTo("about")}>About</button>
           <button className="nav-cta" onClick={() => scrollTo("contact")} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
         </nav>
-        <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
+        <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation">
           {menuOpen ? <X size={22}/> : <Menu size={22}/>}
         </button>
       </header>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div className="mobile-menu" id="mobile-navigation" role="navigation" aria-label="Mobile navigation">
           {["work", "approach", "lab", "about", "contact"].map((id) => (
             <button key={id} onClick={() => scrollTo(id)}>{id === "contact" ? "Start a project ↗" : id}</button>
           ))}
