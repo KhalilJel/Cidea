@@ -222,8 +222,8 @@ function App() {
             <div className="hero-bottom">
               <p>Websites designed to make ambitious businesses impossible to ignore.</p>
               <div className="hero-actions">
-                <button className="button primary" onClick={() => scrollTo("contact")} {...cursorProps("START PROJECT ↗")}>START A PROJECT <ArrowUpRight size={18}/></button>
-                <button className="button ghost" onClick={() => scrollTo("work")} {...cursorProps("VIEW WORK ↘")}>VIEW OUR WORK <ArrowDownRight size={18}/></button>
+                <button className="button primary" onClick={() => { track("cidea_cta_click", { location: "hero" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>START A PROJECT <ArrowUpRight size={18}/></button>
+                <button className="button ghost" onClick={() => { track("cidea_cta_click", { location: "hero_work" }); scrollTo("work"); }} {...cursorProps("VIEW WORK ↘")}>VIEW OUR WORK <ArrowDownRight size={18}/></button>
               </div>
             </div>
           </div>
@@ -393,7 +393,7 @@ function App() {
                 <div><span>DELIVERABLES</span><p>{selectedProject.deliverables}</p></div>
                 <div><span>DESIGN PRINCIPLE</span><p>{selectedProject.principle}</p></div>
               </div>
-              <div className="case-actions"><a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer">OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a><button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button></div>
+              <div className="case-actions"><a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("cidea_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a><button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button></div>
             </div>
           </div>
         </div>
