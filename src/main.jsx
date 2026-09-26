@@ -14,7 +14,9 @@ const projects = [
     challenge: "The studio needed a digital presence that could communicate capability without looking like another agency template.",
     strategy: "Build the experience itself as the proof. Every layer, from typography to interaction, carries the same point of view.",
     system: "A modular visual system built around oversized type, spatial layouts, controlled motion and high contrast.",
-    outcome: "A flagship experience designed to make the quality of the work impossible to separate from the brand."
+    outcome: "A flagship experience designed to make the quality of the work impossible to separate from the brand.",
+    deliverables: "Positioning / UX / Art Direction / Design System / Frontend",
+    principle: "The studio website is not a brochure. It is the first case study."
   },
   {
     name: "AURA",
@@ -26,7 +28,9 @@ const projects = [
     challenge: "Premium clinics often have strong services but digital experiences that feel generic, clinical or difficult to navigate.",
     strategy: "Create a calm editorial environment that explains expertise quickly and moves visitors naturally toward consultation.",
     system: "Soft editorial imagery, precise typography, treatment storytelling and a booking flow built around confidence.",
-    outcome: "A digital flagship designed to turn expertise into trust before the first consultation."
+    outcome: "A digital flagship designed to turn expertise into trust before the first consultation.",
+    deliverables: "Strategy / UX / Editorial Design / Motion / Conversion",
+    principle: "Make confidence visible before asking for commitment."
   },
   {
     name: "NOIR HOUSE",
@@ -38,7 +42,9 @@ const projects = [
     challenge: "Luxury hospitality is difficult to communicate with static information alone. The digital experience has to create a feeling.",
     strategy: "Lead with atmosphere, then reveal the practical details when the visitor is ready to act.",
     system: "Dark editorial layouts, immersive imagery, restrained motion and a reservation path that stays visible without becoming intrusive.",
-    outcome: "A digital experience where the feeling of the property arrives before the guest does."
+    outcome: "A digital experience where the feeling of the property arrives before the guest does.",
+    deliverables: "Brand Experience / Art Direction / UX / Motion / Reservation Flow",
+    principle: "Lead with atmosphere. Reveal information when it becomes useful."
   },
   {
     name: "NORTHLINE",
@@ -50,7 +56,9 @@ const projects = [
     challenge: "Complex projects can become visually impressive but difficult to understand. The website needs to communicate both craft and capability.",
     strategy: "Use the project portfolio as the primary proof, supported by a clear narrative around process, materials and expertise.",
     system: "Architectural grids, oversized project imagery, technical details and a focused enquiry journey.",
-    outcome: "A precise digital identity designed to make serious work feel as serious online as it does in the real world."
+    outcome: "A precise digital identity designed to make serious work feel as serious online as it does in the real world.",
+    deliverables: "Positioning / Information Architecture / Portfolio UX / Design / Development",
+    principle: "Let the work carry the story, then remove everything that gets in its way."
   }
 ];
 
@@ -382,6 +390,8 @@ function App() {
                 <div><span>STRATEGY</span><p>{selectedProject.strategy}</p></div>
                 <div><span>SYSTEM</span><p>{selectedProject.system}</p></div>
                 <div><span>OUTCOME</span><p>{selectedProject.outcome}</p></div>
+                <div><span>DELIVERABLES</span><p>{selectedProject.deliverables}</p></div>
+                <div><span>DESIGN PRINCIPLE</span><p>{selectedProject.principle}</p></div>
               </div>
               <div className="case-actions"><a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer">OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a><button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button></div>
             </div>
