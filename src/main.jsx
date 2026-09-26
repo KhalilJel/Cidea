@@ -1,13 +1,56 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
-import { ArrowDownRight, ArrowUpRight, Menu, Plus, X } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowDownRight, ArrowUpRight, Check, Menu, Plus, X } from "lucide-react";
 import "./styles.css";
 
 const projects = [
-  { name: "Cidea Studio", type: "Digital Experience", tag: "Our flagship", className: "project-studio", code: "CIDEA" },
-  { name: "Aesthetic Clinic", type: "Healthcare / Beauty", tag: "Conversion", className: "project-clinic", code: "FORM" },
-  { name: "Noir House", type: "Hospitality", tag: "Brand experience", className: "project-hospitality", code: "NOIR" },
-  { name: "Northline", type: "Architecture / Construction", tag: "Lead generation", className: "project-architecture", code: "NORTH" }
+  {
+    name: "Cidea Studio",
+    type: "Digital Experience",
+    tag: "Flagship",
+    className: "project-studio",
+    code: "CIDEA",
+    summary: "The studio website as a living demonstration of strategy, design, motion and technology.",
+    challenge: "The studio needed a digital presence that could communicate capability without looking like another agency template.",
+    strategy: "Build the experience itself as the proof. Every layer, from typography to interaction, carries the same point of view.",
+    system: "A modular visual system built around oversized type, spatial layouts, controlled motion and high contrast.",
+    outcome: "A flagship experience designed to make the quality of the work impossible to separate from the brand."
+  },
+  {
+    name: "AURA",
+    type: "Aesthetic Clinic",
+    tag: "Trust / Conversion",
+    className: "project-clinic",
+    code: "AURA",
+    summary: "A premium clinic experience designed around trust, clarity and a frictionless booking journey.",
+    challenge: "Premium clinics often have strong services but digital experiences that feel generic, clinical or difficult to navigate.",
+    strategy: "Create a calm editorial environment that explains expertise quickly and moves visitors naturally toward consultation.",
+    system: "Soft editorial imagery, precise typography, treatment storytelling and a booking flow built around confidence.",
+    outcome: "A digital flagship designed to turn expertise into trust before the first consultation."
+  },
+  {
+    name: "NOIR HOUSE",
+    type: "Luxury Hospitality",
+    tag: "Atmosphere / Desire",
+    className: "project-hospitality",
+    code: "NOIR",
+    summary: "A cinematic hospitality identity built to turn atmosphere into desire before a guest ever arrives.",
+    challenge: "Luxury hospitality is difficult to communicate with static information alone. The digital experience has to create a feeling.",
+    strategy: "Lead with atmosphere, then reveal the practical details when the visitor is ready to act.",
+    system: "Dark editorial layouts, immersive imagery, restrained motion and a reservation path that stays visible without becoming intrusive.",
+    outcome: "A digital experience where the feeling of the property arrives before the guest does."
+  },
+  {
+    name: "NORTHLINE",
+    type: "Architecture / Construction",
+    tag: "Precision / Leads",
+    className: "project-architecture",
+    code: "NORTH",
+    summary: "A structural digital identity for an architecture and construction brand built to communicate precision.",
+    challenge: "Complex projects can become visually impressive but difficult to understand. The website needs to communicate both craft and capability.",
+    strategy: "Use the project portfolio as the primary proof, supported by a clear narrative around process, materials and expertise.",
+    system: "Architectural grids, oversized project imagery, technical details and a focused enquiry journey.",
+    outcome: "A precise digital identity designed to make serious work feel as serious online as it does in the real world."
+  }
 ];
 
 const approach = [
@@ -17,6 +60,13 @@ const approach = [
   ["Growth", "Launch with intent. Learn from behavior. Keep improving what happens after the click."]
 ];
 
+const labItems = [
+  ["01", "Kinetic Type", "Typography that responds to scroll, pointer position and context."],
+  ["02", "Spatial UI", "Interfaces that use depth and movement without adding friction."],
+  ["03", "AI Experience", "Useful intelligence embedded directly into the customer journey."],
+  ["04", "Motion Systems", "A repeatable motion language instead of random animation."]
+];
+
 function App() {
   const cursor = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,30 +74,50 @@ function App() {
   const [activeApproach, setActiveApproach] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeLab, setActiveLab] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const move = (e) => {
-      if (cursor.current) cursor.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    const move = (event) => {
+      if (cursor.current) {
+        cursor.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+      }
     };
     const scroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(max ? window.scrollY / max : 0);
+      setScrollProgress(max > 0 ? window.scrollY / max : 0);
       const rows = [...document.querySelectorAll(".approach-row")];
+      if (!rows.length) return;
       let nearest = 0;
-      rows.forEach((row, i) => {
-        const distance = Math.abs(row.getBoundingClientRect().top - window.innerHeight * 0.48);
-        if (distance < Math.abs(rows[nearest]?.getBoundingClientRect().top - window.innerHeight * 0.48 || Infinity)) nearest = i;
+      rows.forEach((row, index) => {
+        const target = window.innerHeight * 0.48;
+        const distance = Math.abs(row.getBoundingClientRect().top - target);
+        const current = Math.abs(rows[nearest].getBoundingClientRect().top - target);
+        if (distance < current) nearest = index;
       });
       setActiveApproach(nearest);
     };
+    const keydown = (event) => {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+        setMenuOpen(false);
+      }
+    };
     window.addEventListener("pointermove", move);
     window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("keydown", keydown);
     scroll();
     return () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scroll);
+      window.removeEventListener("keydown", keydown);
     };
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = selectedProject ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [selectedProject]);
 
   const scrollTo = (id) => {
     setMenuOpen(false);
@@ -59,6 +129,16 @@ function App() {
     onMouseLeave: () => setCursorLabel("")
   });
 
+  const selectedIndex = useMemo(
+    () => selectedProject ? projects.findIndex((project) => project.name === selectedProject.name) : -1,
+    [selectedProject]
+  );
+
+  const handleBrief = (event) => {
+    event.preventDefault();
+    setSubmitted(true);
+  };
+
   return (
     <div className="site" style={{ "--scroll": scrollProgress }}>
       <div className={`cursor ${cursorLabel ? "cursor-active" : ""}`} ref={cursor}>
@@ -67,7 +147,7 @@ function App() {
       <div className="progress-line" />
 
       <header className="nav">
-        <a className="brand" href="#">CIDEA<span>®</span></a>
+        <button className="brand brand-button" onClick={() => scrollTo("top")} aria-label="Go to top">CIDEA<span>®</span></button>
         <div className="nav-center">DIGITAL EXPERIENCE STUDIO</div>
         <nav>
           <button onClick={() => scrollTo("work")}>Work</button>
@@ -76,7 +156,7 @@ function App() {
           <button onClick={() => scrollTo("about")}>About</button>
           <button className="nav-cta" onClick={() => scrollTo("contact")} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
         </nav>
-        <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu">
+        <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"}>
           {menuOpen ? <X size={22}/> : <Menu size={22}/>}
         </button>
       </header>
@@ -89,15 +169,16 @@ function App() {
         </div>
       )}
 
-      <main>
+      <main id="top">
         <section className="hero">
           <div className="construction-grid" />
           <div className="hero-noise" />
           <div className="hero-orbit orbit-a" />
           <div className="hero-orbit orbit-b" />
           <div className="hero-fragment fragment-one">BRAND / UX / CODE</div>
-          <div className="hero-fragment fragment-two">OSLO → WORLDWIDE</div>
+          <div className="hero-fragment fragment-two">OSLO / WORLDWIDE</div>
           <div className="hero-fragment fragment-three">SYSTEM / 001</div>
+          <div className="hero-crosshair" />
 
           <div className="hero-copy">
             <p className="eyebrow hero-eyebrow">DIGITAL EXPERIENCE STUDIO <span>EST. 2026</span></p>
@@ -129,16 +210,18 @@ function App() {
             <p>Four digital worlds. Four different problems. One standard: make the experience matter.</p>
           </div>
           <div className="projects">
-            {projects.map((project, i) => (
+            {projects.map((project, index) => (
               <article className={`project ${project.className}`} key={project.name} onClick={() => setSelectedProject(project)} {...cursorProps("VIEW PROJECT ↗")}>
                 <div className="project-art">
                   <div className="art-grid" />
                   <div className="art-scan" />
                   <div className="art-shape shape-one" />
                   <div className="art-shape shape-two" />
+                  <div className="art-shape shape-three" />
                   <div className="art-word">{project.code}</div>
-                  <div className="art-label">CASE / 0{i + 1}</div>
+                  <div className="art-label">CASE / {String(index + 1).padStart(2, "0")}</div>
                   <span className="art-orbit" />
+                  <span className="art-caption">{project.summary}</span>
                 </div>
                 <div className="project-meta">
                   <div><span>{project.tag}</span><h3>{project.name}</h3></div>
@@ -168,12 +251,13 @@ function App() {
             <div className="approach-display">
               <span>0{activeApproach + 1}</span>
               <strong>{approach[activeApproach][0]}</strong>
+              <p>{approach[activeApproach][1]}</p>
               <div className="approach-bar"><i style={{ width: `${(activeApproach + 1) * 25}%` }} /></div>
             </div>
             <div className="approach-list">
-              {approach.map(([title, text], i) => (
-                <button className={`approach-row ${activeApproach === i ? "active" : ""}`} key={title} onMouseEnter={() => setActiveApproach(i)} onFocus={() => setActiveApproach(i)}>
-                  <span className="approach-index">0{i + 1}</span>
+              {approach.map(([title, text], index) => (
+                <button className={`approach-row ${activeApproach === index ? "active" : ""}`} key={title} onMouseEnter={() => setActiveApproach(index)} onFocus={() => setActiveApproach(index)}>
+                  <span className="approach-index">0{index + 1}</span>
                   <h3>{title}</h3>
                   <p>{text}</p>
                   <Plus size={22}/>
@@ -196,47 +280,87 @@ function App() {
         <section className="lab" id="lab">
           <div className="lab-visual">
             <div className="lab-crosshair" />
-            <div className="lab-core">LAB</div>
+            <div className="lab-core">{String(activeLab + 1).padStart(2, "0")}</div>
             <div className="lab-ring ring-one"/>
             <div className="lab-ring ring-two"/>
+            <div className="lab-ring ring-three"/>
             <span className="lab-data data-one">INTERACTION / 04</span>
             <span className="lab-data data-two">MOTION / ON</span>
+            <span className="lab-data data-three">SYSTEM / ACTIVE</span>
           </div>
           <div className="lab-copy">
             <span className="eyebrow">THE LAB</span>
             <h2>WE TEST<br/><em>WHAT'S NEXT.</em></h2>
             <p>Interactive type. Motion systems. Spatial interfaces. AI experiences. We experiment so the final product can feel inevitable.</p>
-            <button className="text-link" {...cursorProps("EXPLORE LAB ↗")}>EXPLORE THE LAB <ArrowUpRight size={16}/></button>
+            <div className="lab-list">
+              {labItems.map(([number, title, text], index) => (
+                <button className={`lab-item ${activeLab === index ? "active" : ""}`} key={number} onMouseEnter={() => setActiveLab(index)} onFocus={() => setActiveLab(index)}>
+                  <span>{number}</span><strong>{title}</strong><small>{text}</small><ArrowUpRight size={15}/>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="about" id="about">
           <div className="eyebrow">ABOUT</div>
           <h2>SMALL TEAM.<br/><em>BIG CRAFT.</em></h2>
-          <div className="about-bottom"><p>Independent digital studio based in Oslo, working with ambitious businesses worldwide.</p><span>OSLO / WORLDWIDE</span></div>
+          <div className="about-grid">
+            <p>Independent digital studio based in Oslo, working with ambitious businesses worldwide. We combine strategy, design and development in one focused team.</p>
+            <div className="about-principles">
+              <span>01 / CLARITY</span>
+              <span>02 / CRAFT</span>
+              <span>03 / PURPOSE</span>
+              <span>04 / MOTION</span>
+            </div>
+          </div>
         </section>
 
         <section className="contact" id="contact">
           <span className="eyebrow">START A PROJECT</span>
           <h2>READY TO BUILD<br/><em>SOMETHING UNFORGETTABLE?</em></h2>
-          <button className="contact-button" {...cursorProps("LET'S TALK ↗")}>LET'S TALK <ArrowUpRight size={25}/></button>
+          <div className="contact-layout">
+            <div>
+              <p>Tell us what you are building, where the current experience falls short and what needs to change.</p>
+              <a className="contact-email" href="mailto:hello@cidea.studio" {...cursorProps("EMAIL CIDEA ↗")}>hello@cidea.studio <ArrowUpRight size={17}/></a>
+            </div>
+            <form className="brief-form" onSubmit={handleBrief}>
+              <label>Name<input required name="name" placeholder="Your name" /></label>
+              <label>Company<input required name="company" placeholder="Company name" /></label>
+              <label>Project type<select name="type" defaultValue="New digital experience"><option>New digital experience</option><option>Website redesign</option><option>Digital product</option><option>Growth and conversion</option></select></label>
+              <label>What are you trying to achieve?<textarea required name="message" rows="4" placeholder="A short description of the project" /></label>
+              <button className="contact-button" type="submit">{submitted ? <><Check size={20}/> BRIEF READY</> : <>SEND PROJECT BRIEF <ArrowUpRight size={22}/></>}</button>
+              {submitted && <p className="form-note">Your brief is ready. Email Cidea directly to continue the conversation.</p>}
+            </form>
+          </div>
         </section>
       </main>
 
       {selectedProject && (
         <div className="case-overlay" role="dialog" aria-modal="true" aria-label={selectedProject.name} onClick={() => setSelectedProject(null)}>
-          <div className={`case-panel ${selectedProject.className}`} onClick={(e) => e.stopPropagation()}>
+          <div className={`case-panel ${selectedProject.className}`} onClick={(event) => event.stopPropagation()}>
             <button className="case-close" onClick={() => setSelectedProject(null)} aria-label="Close project"><X size={22}/></button>
-            <div className="case-visual"><span>CASE / {String(projects.findIndex((p) => p.name === selectedProject.name) + 1).padStart(2, "0")}</span><strong>{selectedProject.code}</strong></div>
+            <div className="case-visual">
+              <span>CASE / {String(selectedIndex + 1).padStart(2, "0")}</span>
+              <strong>{selectedProject.code}</strong>
+              <div className="case-grid" />
+            </div>
             <div className="case-content">
               <span className="eyebrow">{selectedProject.type}</span>
               <h2>{selectedProject.name}</h2>
-              <p>{selectedProject.name === "Cidea Studio" ? "The flagship digital experience for the studio itself. A living demonstration of strategy, design, motion and technology working as one system." : selectedProject.name === "Aesthetic Clinic" ? "A premium clinic experience designed around trust, clarity and conversion, with editorial art direction and a frictionless booking journey." : selectedProject.name === "Noir House" ? "A cinematic hospitality identity built to turn atmosphere into desire before a guest ever arrives." : "A structural digital identity for an ambitious architecture and construction brand, built to communicate precision and generate qualified enquiries."}</p>
-              <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE PROJECT <X size={16}/></button>
+              <p className="case-summary">{selectedProject.summary}</p>
+              <div className="case-sections">
+                <div><span>CHALLENGE</span><p>{selectedProject.challenge}</p></div>
+                <div><span>STRATEGY</span><p>{selectedProject.strategy}</p></div>
+                <div><span>SYSTEM</span><p>{selectedProject.system}</p></div>
+                <div><span>OUTCOME</span><p>{selectedProject.outcome}</p></div>
+              </div>
+              <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button>
             </div>
           </div>
         </div>
       )}
+
       <footer>
         <div className="brand">CIDEA<span>®</span></div>
         <div>OSLO / WORLDWIDE</div>
