@@ -23,6 +23,7 @@ function App() {
   const [cursorLabel, setCursorLabel] = useState("");
   const [activeApproach, setActiveApproach] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     const move = (e) => {
@@ -129,7 +130,7 @@ function App() {
           </div>
           <div className="projects">
             {projects.map((project, i) => (
-              <article className={`project ${project.className}`} key={project.name} {...cursorProps("VIEW PROJECT ↗")}>
+              <article className={`project ${project.className}`} key={project.name} onClick={() => setSelectedProject(project)} {...cursorProps("VIEW PROJECT ↗")}>
                 <div className="project-art">
                   <div className="art-grid" />
                   <div className="art-scan" />
@@ -222,6 +223,20 @@ function App() {
         </section>
       </main>
 
+      {selectedProject && (
+        <div className="case-overlay" role="dialog" aria-modal="true" aria-label={selectedProject.name} onClick={() => setSelectedProject(null)}>
+          <div className={`case-panel ${selectedProject.className}`} onClick={(e) => e.stopPropagation()}>
+            <button className="case-close" onClick={() => setSelectedProject(null)} aria-label="Close project"><X size={22}/></button>
+            <div className="case-visual"><span>CASE / {String(projects.findIndex((p) => p.name === selectedProject.name) + 1).padStart(2, "0")}</span><strong>{selectedProject.code}</strong></div>
+            <div className="case-content">
+              <span className="eyebrow">{selectedProject.type}</span>
+              <h2>{selectedProject.name}</h2>
+              <p>{selectedProject.name === "Cidea Studio" ? "The flagship digital experience for the studio itself. A living demonstration of strategy, design, motion and technology working as one system." : selectedProject.name === "Aesthetic Clinic" ? "A premium clinic experience designed around trust, clarity and conversion, with editorial art direction and a frictionless booking journey." : selectedProject.name === "Noir House" ? "A cinematic hospitality identity built to turn atmosphere into desire before a guest ever arrives." : "A structural digital identity for an ambitious architecture and construction brand, built to communicate precision and generate qualified enquiries."}</p>
+              <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE PROJECT <X size={16}/></button>
+            </div>
+          </div>
+        </div>
+      )}
       <footer>
         <div className="brand">CIDEA<span>®</span></div>
         <div>OSLO / WORLDWIDE</div>
