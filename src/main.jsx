@@ -145,7 +145,7 @@ function App() {
       "",
       "Project brief:",
       data.get("message")
-    ].join("\\n");
+    ].join("\n");
     window.location.href = `mailto:hello@cidea.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   };
