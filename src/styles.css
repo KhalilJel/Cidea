@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
-
 :root{--black:#080808;--white:#f1f0eb;--graphite:#171717;--ash:#858585;--acid:#d9ff3f;--line:#252525}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -361,3 +359,5 @@ body{overflow-x:hidden}
 .case-panel{max-height:min(900px,92vh);overflow:auto}
 @media(max-width:900px){.case-panel{max-height:100%;height:100%;border-radius:0}.case-overlay{padding:0}.nav{transition:padding .45s var(--ease-cidea),background .45s ease}.cursor{display:none!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.scroll-cue,.lab-ring{animation:none!important}.hero h1{transform:none!important}}
+
+@media (max-width: 700px), (prefers-reduced-motion: reduce){.hero-noise,.hero-orbit,.hero-fragment,.hero-crosshair{display:none}.construction-grid{opacity:.28}}
