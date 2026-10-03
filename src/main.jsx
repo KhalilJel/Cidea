@@ -59,7 +59,7 @@ const projects = [
     outcome: "A precise digital identity designed to make serious work feel as serious online as it does in the real world.",
     deliverables: "Positioning / Information Architecture / Portfolio UX / Design / Development",
     principle: "Let the work carry the story, then remove everything that gets in its way."
-  }
+  },
   {
     name: "SALT & STONE",
     type: "Restaurant / Dining",
