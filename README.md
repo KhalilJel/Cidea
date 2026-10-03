@@ -1,8 +1,8 @@
-# Cidea
+# SmartSvar
 
 **Digital Experience Studio**
 
-Cidea builds distinctive digital flagships for ambitious businesses.
+SmartSvar builds distinctive digital flagships for ambitious businesses.
 
 > Complexity underneath. Simplicity on the surface.
 
@@ -51,10 +51,11 @@ public/
 
 ## Featured experiences
 
-* **Cidea Studio** — digital experience studio
+* **SmartSvar Studio** — digital experience studio
 * **AURA** — premium aesthetic and dental clinic
 * **NOIR HOUSE** — luxury hospitality
 * **NORTHLINE** — architecture and construction
+* **SALT & STONE** — contemporary restaurant and dining
 
 The demo experiences are self contained under `public/demos/` and are linked from the main portfolio.
 
@@ -78,7 +79,7 @@ The `main` branch is built and deployed to GitHub Pages through GitHub Actions.
 
 The current public deployment is:
 
-https://khaliljel.github.io/Cidea/
+https://khaliljel.github.io/SmartSvar/
 
 ## Conversion and analytics
 
@@ -90,10 +91,10 @@ Tracked interaction categories include navigation, project opens, primary CTAs, 
 
 Project enquiries are currently prepared through the site's contact flow and sent to:
 
-**hello@cidea.studio**
+**hello@smartsvar.studio**
 
 ## Status
 
 The core experience, portfolio demos, responsive behavior, accessibility foundations, metadata, sitemap, robots file, branded 404 and GitHub Pages deployment are implemented.
 
-Custom domain configuration, production analytics provider setup and final art direction assets remain external launch tasks.
+The custom domain is prepared in the site files. DNS and GitHub Pages domain settings must be verified separately. Demo brands are illustrative concepts, not client claims.
