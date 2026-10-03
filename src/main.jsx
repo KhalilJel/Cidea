@@ -5,11 +5,11 @@ import "./styles.css";
 
 const projects = [
   {
-    name: "Cidea Studio",
+    name: "SmartSvar Studio",
     type: "Digital Experience",
     tag: "Flagship",
     className: "project-studio",
-    code: "CIDEA",
+    code: "SMARTSVAR",
     summary: "The studio website as a living demonstration of strategy, design, motion and technology.",
     challenge: "The studio needed a digital presence that could communicate capability without looking like another agency template.",
     strategy: "Build the experience itself as the proof. Every layer, from typography to interaction, carries the same point of view.",
@@ -60,6 +60,20 @@ const projects = [
     deliverables: "Positioning / Information Architecture / Portfolio UX / Design / Development",
     principle: "Let the work carry the story, then remove everything that gets in its way."
   }
+  {
+    name: "SALT & STONE",
+    type: "Restaurant / Dining",
+    tag: "Taste / Reservations",
+    className: "project-restaurant",
+    code: "SALT",
+    summary: "A contemporary restaurant experience built around appetite, atmosphere and an effortless table booking journey.",
+    challenge: "Restaurant websites need to communicate the feeling of the room and the food while making menus, location and reservations easy to find.",
+    strategy: "Lead with editorial food and interior direction, then keep practical details and reservation actions close at hand.",
+    system: "Warm tones, expressive typography, a seasonal menu story and a direct reservation path.",
+    outcome: "A restaurant concept designed to make the next visit feel appealing and simple to plan.",
+    deliverables: "Art Direction / Menu UX / Responsive Design / Reservation Journey",
+    principle: "Make people hungry to visit, then make the next step effortless."
+  },
 ];
 
 const approach = [
@@ -149,7 +163,7 @@ function App() {
 
   const openProject = (project) => {
     caseOrigin.current = document.activeElement;
-    track("cidea_case_open", { project: project.name });
+    track("smartsvar_case_open", { project: project.name });
     setSelectedProject(project);
   };
   const projectKeyDown = (event, project) => {
@@ -168,7 +182,7 @@ function App() {
     if (selectedIndex < 0) return;
     const nextIndex = (selectedIndex + direction + projects.length) % projects.length;
     const nextProject = projects[nextIndex];
-    track("cidea_case_navigate", { from: selectedProject.name, to: nextProject.name });
+    track("smartsvar_case_navigate", { from: selectedProject.name, to: nextProject.name });
     setSelectedProject(nextProject);
   };
 
@@ -180,7 +194,7 @@ function App() {
       const direction = event.key === "ArrowRight" ? 1 : -1;
       const nextIndex = (selectedIndex + direction + projects.length) % projects.length;
       const nextProject = projects[nextIndex];
-      track("cidea_case_navigate", { from: selectedProject.name, to: nextProject.name });
+      track("smartsvar_case_navigate", { from: selectedProject.name, to: nextProject.name });
       setSelectedProject(nextProject);
     };
     window.addEventListener("keydown", handleCaseKeys);
@@ -198,10 +212,10 @@ function App() {
   };
 
   const handleBrief = (event) => {
-    track("cidea_enquiry_start", { form: "project_brief" });
+    track("smartsvar_enquiry_start", { form: "project_brief" });
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const subject = `Cidea project enquiry from ${data.get("name")}`;
+    const subject = `SmartSvar project enquiry from ${data.get("name")}`;
     const body = [
       `Name: ${data.get("name")}`,
       `Company: ${data.get("company")}`,
@@ -210,7 +224,7 @@ function App() {
       "Project brief:",
       data.get("message")
     ].join("\n");
-    window.location.href = `mailto:hello@cidea.studio?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:jelassi@smartsvar.no?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   };
 
@@ -222,14 +236,14 @@ function App() {
       <div className="progress-line" />
 
       <header className={`nav${navScrolled ? " nav-scrolled" : ""}`}>
-        <button className="brand brand-button" onClick={() => scrollTo("top")} aria-label="Go to top">CIDEA<span>®</span></button>
+        <button className="brand brand-button" onClick={() => scrollTo("top")} aria-label="Go to top">SMARTSVAR<span>®</span></button>
         <div className="nav-center">DIGITAL EXPERIENCE STUDIO</div>
         <nav>
-          <button onClick={() => { track("cidea_nav_click", { target: "work" }); scrollTo("work"); }}>Work</button>
-          <button onClick={() => { track("cidea_nav_click", { target: "approach" }); scrollTo("approach"); }}>Approach</button>
-          <button onClick={() => { track("cidea_nav_click", { target: "lab" }); scrollTo("lab"); }}>Lab</button>
-          <button onClick={() => { track("cidea_nav_click", { target: "about" }); scrollTo("about"); }}>About</button>
-          <button className="nav-cta" onClick={() => { track("cidea_cta_click", { location: "nav" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
+          <button onClick={() => { track("smartsvar_nav_click", { target: "work" }); scrollTo("work"); }}>Work</button>
+          <button onClick={() => { track("smartsvar_nav_click", { target: "approach" }); scrollTo("approach"); }}>Approach</button>
+          <button onClick={() => { track("smartsvar_nav_click", { target: "lab" }); scrollTo("lab"); }}>Lab</button>
+          <button onClick={() => { track("smartsvar_nav_click", { target: "about" }); scrollTo("about"); }}>About</button>
+          <button className="nav-cta" onClick={() => { track("smartsvar_cta_click", { location: "nav" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>Start a project <ArrowUpRight size={15}/></button>
         </nav>
         <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation">
           {menuOpen ? <X size={22}/> : <Menu size={22}/>}
@@ -261,12 +275,12 @@ function App() {
             <div className="hero-bottom">
               <p>Websites designed to make ambitious businesses impossible to ignore.</p>
               <div className="hero-actions">
-                <button className="button primary" onClick={() => { track("cidea_cta_click", { location: "hero" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>START A PROJECT <ArrowUpRight size={18}/></button>
-                <button className="button ghost" onClick={() => { track("cidea_cta_click", { location: "hero_work" }); scrollTo("work"); }} {...cursorProps("VIEW WORK ↘")}>VIEW OUR WORK <ArrowDownRight size={18}/></button>
+                <button className="button primary" onClick={() => { track("smartsvar_cta_click", { location: "hero" }); scrollTo("contact"); }} {...cursorProps("START PROJECT ↗")}>START A PROJECT <ArrowUpRight size={18}/></button>
+                <button className="button ghost" onClick={() => { track("smartsvar_cta_click", { location: "hero_work" }); scrollTo("work"); }} {...cursorProps("VIEW WORK ↘")}>VIEW OUR WORK <ArrowDownRight size={18}/></button>
               </div>
             </div>
           </div>
-          <div className="hero-index">CIDEA / 001</div>
+          <div className="hero-index">SMARTSVAR / 001</div>
           <div className="scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDownRight size={15}/></div>
         </section>
 
@@ -397,7 +411,7 @@ function App() {
           <div className="contact-layout">
             <div>
               <p>Tell us what you are building, where the current experience falls short and what needs to change.</p>
-              <a className="contact-email" href="mailto:hello@cidea.studio" {...cursorProps("EMAIL CIDEA ↗")}>hello@cidea.studio <ArrowUpRight size={17}/></a>
+              <a className="contact-email" href="mailto:jelassi@smartsvar.no" {...cursorProps("EMAIL SMARTSVAR ↗")}>jelassi@smartsvar.no <ArrowUpRight size={17}/></a>
             </div>
             <form className="brief-form" onSubmit={handleBrief}>
               <label>Name<input required name="name" placeholder="Your name" /></label>
@@ -435,7 +449,7 @@ function App() {
               <div className="case-actions">
                 <button className="text-link" onClick={() => changeProject(-1)} aria-label="Previous case">PREVIOUS CASE <ArrowUpRight size={16}/></button>
                 <button className="text-link" onClick={() => changeProject(1)} aria-label="Next case">NEXT CASE <ArrowUpRight size={16}/></button>
-                <a className="text-link" href={selectedProject.name === "Cidea Studio" ? "/Cidea/" : `/Cidea/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("cidea_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a>
+                <a className="text-link" href={selectedProject.name === "SmartSvar Studio" ? "/SmartSvar/" : `/SmartSvar/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("smartsvar_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a>
                 <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button>
               </div>
             </div>
@@ -444,9 +458,9 @@ function App() {
       )}
 
       <footer>
-        <div className="brand">CIDEA<span>®</span></div>
+        <div className="brand">SMARTSVAR<span>®</span></div>
         <div>OSLO / WORLDWIDE</div>
-        <div>© 2026 CIDEA</div>
+        <div>© 2026 SMARTSVAR</div>
       </footer>
     </div>
   );
