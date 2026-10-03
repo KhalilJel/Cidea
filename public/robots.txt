@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://khaliljel.github.io/Cidea/sitemap.xml
+Sitemap: https://smartsvar.no/sitemap.xml
