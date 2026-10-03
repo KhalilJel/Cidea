@@ -1,4 +1,4 @@
-name: Deploy Cidea to GitHub Pages
+name: Deploy SmartSvar to GitHub Pages
 
 on:
   push:
