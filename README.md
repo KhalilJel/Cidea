@@ -56,6 +56,7 @@ public/
 * **NOIR HOUSE** — luxury hospitality
 * **NORTHLINE** — architecture and construction
 * **SALT & STONE** — contemporary restaurant and dining
+* **SALT & STONE** — contemporary restaurant and dining
 
 The demo experiences are self contained under `public/demos/` and are linked from the main portfolio.
 
