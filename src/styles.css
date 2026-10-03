@@ -501,3 +501,8 @@ footer .brand{color:#fff}
   .project-meta{background:linear-gradient(transparent,rgba(7,21,46,.9))}
   .contact{background:#0B1F44}
 }
+
+.project-restaurant .project-art{background:radial-gradient(circle at 65% 40%,#9d6735,#342519 50%,#0B1F44 100%)}
+.project-restaurant .shape-three{border-radius:50%;border-color:rgba(213,166,91,.35)}
+.project-restaurant .art-word{color:#E3B979}
+.case-panel.project-restaurant .case-visual{background:radial-gradient(circle at 60% 35%,#b67e43,#49321f 48%,#171713 80%)}
