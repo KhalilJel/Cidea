@@ -449,7 +449,7 @@ function App() {
               <div className="case-actions">
                 <button className="text-link" onClick={() => changeProject(-1)} aria-label="Previous case">PREVIOUS CASE <ArrowUpRight size={16}/></button>
                 <button className="text-link" onClick={() => changeProject(1)} aria-label="Next case">NEXT CASE <ArrowUpRight size={16}/></button>
-                <a className="text-link" href={selectedProject.name === "SmartSvar Studio" ? "/SmartSvar/" : `/SmartSvar/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : "northline"}/`} target="_blank" rel="noreferrer" onClick={() => track("smartsvar_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a>
+                <a className="text-link" href={selectedProject.name === "SmartSvar Studio" ? "/" : `/demos/${selectedProject.name === "AURA" ? "aura" : selectedProject.name === "NOIR HOUSE" ? "noir" : selectedProject.name === "NORTHLINE" ? "northline" : "salt-stone"}/`} target="_blank" rel="noreferrer" onClick={() => track("smartsvar_full_experience_click", { project: selectedProject.name })}>OPEN FULL EXPERIENCE <ArrowUpRight size={16}/></a>
                 <button className="text-link" onClick={() => setSelectedProject(null)}>CLOSE CASE <X size={16}/></button>
               </div>
             </div>
